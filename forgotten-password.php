@@ -39,7 +39,7 @@
       $request=$requestQuery->fetch(PDO::FETCH_ASSOC);
 
       //sestavíme odkaz pro mail
-      $link='https://eso.vse.cz/~matj18/tajnySanta/renew-password.php';
+      $link='https://eso.vse.cz/~matj18/tichySanta/renew-password.php';
       $link.='?user='.$request['user_id'].'&code='.$request['code'].'&request='.$request['forgotten_password_id'];
       #endregion vygenerování kódu pro obnovu hesla
 
@@ -54,14 +54,14 @@
 
       //nastavíme kódování a předmět e-mailu
       $mailer->CharSet='utf-8';
-      $mailer->Subject='Obnova zapomenutého hesla';
+      $mailer->Subject='Obnova zapomenutého hesla v aplikaci Tichý Santa';
 
       $mailer->isHTML(true);
       $mailer->Body ='<html>
                         <head><meta charset="utf-8" /></head>
-                        <body>Pro obnovu hesla do Ukázkové aplikace klikněte na následující odkaz: <a href="'.htmlspecialchars($link).'">'.htmlspecialchars($link).'</a></body>
+                        <body>Nové heslo do aplikace Tichý Santa si můžete nastavit zde: <a href="'.htmlspecialchars($link).'">'.htmlspecialchars($link).'</a> Pokud jste o obnovu hesla nežádali, můžete tento e-mail ignorovat.</body>
                       </html>';
-      $mailer->AltBody='Pro obnovu hesla do Ukázkové aplikace klikněte na následující odkaz: '.$link;
+      $mailer->AltBody='Pro obnovu hesla do aplikace Tichý Santa klikněte na následující odkaz: '.$link;
 
       $mailer->send();
       #endregion poslání mailu pro obnovu hesla

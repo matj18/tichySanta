@@ -8,8 +8,9 @@
   include __DIR__.'/inc/header.php';
 
   if (!empty($_SESSION['user_id'])){
-    echo '<p>Přihlášený uživatel: <strong>'.htmlspecialchars($_SESSION['user_name']).'</strong></p>';
-    echo '<a href="logout.php" class="btn btn-primary">odhlásit se</a>';
+      //zjistime informace o uzivateli z databaze
+
+    echo 'Tady bude profil';
   }else{
     echo '<p>Uživatel není přihlášen.</p>';
     echo '<a href="login.php" class="btn btn-primary">přihlásit se</a>';

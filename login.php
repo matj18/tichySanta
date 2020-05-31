@@ -45,8 +45,9 @@
 ?>
 
   <h2>Přihlášení uživatele</h2>
-    #region přihlašování pomocí Facebooku
+
     <?php
+    #region přihlašování pomocí Facebooku
     //inicializujeme helper pro vytvoření odkazu
     $fbHelper = $fb->getRedirectLoginHelper();
 
@@ -59,8 +60,9 @@
 
     //vykreslíme odkaz na přihlášení
     echo ' <a href="'.$fbLoginUrl.'" class="btn btn-primary">přihlásit se pomocí Facebooku</a>';
-    ?>
     #endregion přihlašování pomocí Facebooku
+    ?>
+
 
 
 
