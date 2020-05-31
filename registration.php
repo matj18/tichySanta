@@ -31,7 +31,7 @@
         ':email'=>$email
       ]);
       if ($mailQuery->rowCount()>0){
-        $errors['name']='Uživatelský účet s touto e-mailovou adresou již existuje.';
+        $errors['email']='Uživatelský účet s touto e-mailovou adresou již existuje.';
       }
     }
     #endregion kontrola emailu
