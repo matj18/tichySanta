@@ -23,7 +23,7 @@
     #region kontrola emailu
     $email=trim(@$_POST['email']);
     if (!filter_var($email,FILTER_VALIDATE_EMAIL)){
-      $errors['name']='Musíte zadat platnou e-mailovou adresu.';
+      $errors['email']='Musíte zadat platnou e-mailovou adresu.';
     }else{
       //kontrola, jestli již není e-mail registrovaný
       $mailQuery=$db->prepare('SELECT * FROM users WHERE email=:email LIMIT 1;');
