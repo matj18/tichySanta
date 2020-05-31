@@ -1,4 +1,4 @@
-<!DOCTYPE html> //kod z cviceni
+<!DOCTYPE html>
 <html lang="cs">
   <head>
     <title><?php echo (!empty($pageTitle)?$pageTitle.' - ':'')?>Tichý Santa</title>

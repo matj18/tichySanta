@@ -39,7 +39,7 @@
       $request=$requestQuery->fetch(PDO::FETCH_ASSOC);
 
       //sestavíme odkaz pro mail
-      $link='https://eso.vse.cz/~xname/11-local-login/renew-password.php';//TODO tady bude potřeba aktualizovat absolutní URL adresu
+      $link='https://eso.vse.cz/~matj18/tajnySanta/renew-password.php';
       $link.='?user='.$request['user_id'].'&code='.$request['code'].'&request='.$request['forgotten_password_id'];
       #endregion vygenerování kódu pro obnovu hesla
 
@@ -50,7 +50,7 @@
 
       //nastavení adresy příjemce a odesílatele
       $mailer->addAddress($user['email'],$user['name']);//příjemce mailu; POZOR: server eso.vse.cz umí posílat maily jen na školní e-maily!
-      //$mailer->setFrom('xname@vse.cz'); //TODO na tomhle řádku by mělo být nastavení reálné adresy odesílatele
+      $mailer->setFrom('matj18@vse.cz');
 
       //nastavíme kódování a předmět e-mailu
       $mailer->CharSet='utf-8';

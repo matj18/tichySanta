@@ -1,6 +1,8 @@
 <?php
   //načteme připojení k databázi a inicializujeme session
   require_once 'inc/user.php';
+  //načteme inicializaci knihovny pro Facebook
+  require_once 'inc/facebook.php';
 
   if (!empty($_SESSION['user_id'])){
     //smažeme ze session identifikaci uživatele

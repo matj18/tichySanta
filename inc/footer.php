@@ -1,3 +1,3 @@
-    </main> //kod z cviceni
+    </main>
   </body>
 </html>

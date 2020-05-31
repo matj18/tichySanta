@@ -1,6 +1,8 @@
 <?php
   //načteme připojení k databázi a inicializujeme session
   require_once 'inc/user.php';
+  //načteme inicializaci knihovny pro Facebook
+  require_once 'inc/facebook.php';
 
   if (!empty($_SESSION['user_id'])){
     //uživatel už je přihlášený, nemá smysl, aby se přihlašoval znovu
@@ -43,6 +45,25 @@
 ?>
 
   <h2>Přihlášení uživatele</h2>
+    #region přihlašování pomocí Facebooku
+    <?php
+    //inicializujeme helper pro vytvoření odkazu
+    $fbHelper = $fb->getRedirectLoginHelper();
+
+    //nastavení parametrů pro vyžádání oprávnění a odkaz na přesměrování po přihlášení
+    $permissions = ['email'];
+    $callbackUrl = htmlspecialchars('https://eso.vse.cz/~matj18/tichySanta/fb-callback.php');
+
+    //necháme helper sestavit adresu pro odeslání požadavku na přihlášení
+    $fbLoginUrl = $fbHelper->getLoginUrl($callbackUrl, $permissions);
+
+    //vykreslíme odkaz na přihlášení
+    echo ' <a href="'.$fbLoginUrl.'" class="btn btn-primary">přihlásit se pomocí Facebooku</a>';
+    ?>
+    #endregion přihlašování pomocí Facebooku
+
+
+
   <form method="post">
     <div class="form-group">
       <label for="email">E-mail:</label>
