@@ -154,7 +154,10 @@ if (!empty($gifts)){
               </tr>';
         echo '<tr>
                 <td colspan="3">'.htmlspecialchars($gift['description']).'</td>  
-                <td class="odsazeni"><a href="giftYES.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Zamluvit</a></td>           
+                <td class="odsazeni">';
+        if (empty($gift['gift_from']))
+        echo '<a href="giftYES.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Zamluvit</a>';
+        echo '</td>           
               </tr>';
     }
     echo '</table>';
