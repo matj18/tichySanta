@@ -134,7 +134,7 @@ if (!empty($_POST)){
 
         #endregion uložení dat
         #region přesměrování
-        header('Location: index.php'); //todo smer
+        header('Location: wishlist.php'); //todo smer
         exit();
         #endregion přesměrování
     }
