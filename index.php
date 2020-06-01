@@ -25,19 +25,21 @@
       echo '<h2>'.htmlspecialchars($name).'</h2>
             <div>'.htmlspecialchars($description).'</div>';
 
+      //spočítáme dárky ve wishlistu
       $countQuery=$db->prepare('SELECT COUNT(gift_id) FROM gifts WHERE gift_for =:id;');
       $countQuery->execute([
           ':id'=>$_SESSION['user_id']
       ]);
       $count_wishlist=$countQuery->fetch(PDO::FETCH_COLUMN);
-      echo '<div><a>Seznam přání: '.htmlspecialchars($count_wishlist).'</a></div>';
+      echo '<div><a href="mywishlist.php">Seznam přání: '.htmlspecialchars($count_wishlist).'</a></div>';
 
+      //spočítáme dárky co je potřeba koupit
       $countQuery=$db->prepare('SELECT COUNT(gift_id) FROM gifts WHERE gift_from =:id;');
       $countQuery->execute([
           ':id'=>$_SESSION['user_id']
       ]);
       $count_tobuy=$countQuery->fetch(PDO::FETCH_COLUMN);
-      echo '<div><a>Sehnat dárky: '.htmlspecialchars($count_tobuy).'</a></div>';
+      echo '<div><a href="tobuy.php">Sehnat dárky: '.htmlspecialchars($count_tobuy).'</a></div>';
 
 
       #endregion profil uživatele
