@@ -109,19 +109,27 @@ if (!empty($_POST)){
 
         if ($gift_id){
             #region aktualizace existujícího příspěvku
-            $saveQuery=$db->prepare('UPDATE gifts SET category_id=:category, text=:text, user_id=:user WHERE post_id=:id LIMIT 1;');
+            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices, until=:until, gift_for=:gift_for WHERE gift_id=:id LIMIT 1;');
             $saveQuery->execute([
+                ':name' =>$gift_name,
+                ':description' =>$gift_description,
                 ':category'=>$gift_category,
-                ':id'=>$gift_id,
-                ':user'=>$_SESSION['user_id']
+                ':prices'=>$gift_prices,
+                ':until'=>$gift_until,
+                ':user'=>$gift_for,
+                ':id'=>$gift_id
             ]);
             #endregion aktualizace existujícího příspěvku
         }else{
             #region uložení nového příspěvku
-            $saveQuery=$db->prepare('INSERT INTO gifts (user_id, category_id, text) VALUES (:user, :category, :text);');
+            $saveQuery=$db->prepare('INSERT INTO gifts (gift, description, category_id, prices_id, until, gift_for) VALUES (:name, :description, :category, :prices, :until, :user);');
             $saveQuery->execute([
-                ':user'=>$_SESSION['user_id'],
+                ':name' =>$gift_name,
+                ':description' =>$gift_description,
                 ':category'=>$gift_category,
+                ':prices'=>$gift_prices,
+                ':until'=>$gift_until,
+                ':user'=>$gift_for,
             ]);
             #endregion uložení nového příspěvku
         }
