@@ -118,17 +118,15 @@ if (!empty($gifts)){
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
               </tr>';
-        if ($gift['description']) {
-            echo '<tr>
-                <td><a href="gift.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Upravit</a></td>
+        echo '<tr>
+                <td class="odsazeni"><a href="gift.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Upravit</a></td>
                 <td colspan="3">'.htmlspecialchars($gift['description']).'</td>             
               </tr>';
-        }
     }
     echo '</table>';
 #endregion výpis wishlist
 }else{
-echo '<div class="alert alert-info">V seznamu přání nejsou zatím žádné dárky. Button</div>';
+echo '<div class="alert alert-info">V seznamu přání nejsou zatím žádné dárky. <a href="gift.php" class="btn btn-primary">Přidat</a></div>';
 }
 
 
