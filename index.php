@@ -24,6 +24,7 @@
       }
       echo '<h2>'.htmlspecialchars($name).'</h2>
             <div>'.htmlspecialchars($description).'</div>';
+      echo '<a class="btn btn-secondary" href="profile.php">Upravit profil</a>';
 
       //spočítáme dárky ve wishlistu
       $countQuery=$db->prepare('SELECT COUNT(gift_id) FROM gifts WHERE gift_for =:id;');

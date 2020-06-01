@@ -88,6 +88,7 @@ if (!empty($_POST)){
     }
     #endregion kontrola prices
     #region kontrola until
+    //todo nefunguje
     if (!empty($_POST['until'])) {
         $d=strtotime($_POST['until']);
         if ($d < strtotime(date('D-M-Y'))) {
@@ -97,38 +98,35 @@ if (!empty($_POST)){
         $errors['until']='Vyberte datum.';
     }
     #endregion kontrola until
-    #region kontrola textu
-//    $postText=trim(@$_POST['text']);
-//    if (empty($postText)){
-//        $errors['text']='Musíte zadat text příspěvku.';
-//    }
-    #endregion kontrola textu
+
+    #region pro data bez kontroly
+    $gift_description=$_POST['description'];
+    #endregion pro data bez kontroly
 
     if (empty($errors)){
         #region uložení dat
 
         if ($gift_id){
             #region aktualizace existujícího příspěvku
-            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices, until=:until, gift_for=:gift_for WHERE gift_id=:id LIMIT 1;');
+            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices WHERE gift_id=:id LIMIT 1;');
             $saveQuery->execute([
                 ':name' =>$gift_name,
                 ':description' =>$gift_description,
                 ':category'=>$gift_category,
                 ':prices'=>$gift_prices,
-                ':until'=>$gift_until,
-                ':user'=>$gift_for,
+                //':until'=>$gift_until,
                 ':id'=>$gift_id
             ]);
             #endregion aktualizace existujícího příspěvku
         }else{
             #region uložení nového příspěvku
-            $saveQuery=$db->prepare('INSERT INTO gifts (gift, description, category_id, prices_id, until, gift_for) VALUES (:name, :description, :category, :prices, :until, :user);');
+            $saveQuery=$db->prepare('INSERT INTO gifts (gift, description, category_id, prices_id, gift_for) VALUES (:name, :description, :category, :prices, :user);');
             $saveQuery->execute([
                 ':name' =>$gift_name,
                 ':description' =>$gift_description,
                 ':category'=>$gift_category,
                 ':prices'=>$gift_prices,
-                ':until'=>$gift_until,
+                //':until'=>$gift_until,
                 ':user'=>$gift_for,
             ]);
             #endregion uložení nového příspěvku
@@ -158,7 +156,7 @@ include 'inc/header.php';
 
         <div class="form-group">
             <label for="name">Název dárku:</label>
-            <input type="text" name="name" id="name" required class="form-control <?php echo (!empty($errors['name'])?'is-invalid':''); ?>"><?php echo htmlspecialchars($gift_name)?></input>
+            <input type="text" name="name" id="name" required class="form-control <?php echo (!empty($errors['name'])?'is-invalid':''); ?>" value="<?php echo htmlspecialchars($gift_name)?>"/>
             <?php
             if (!empty($errors['name'])){
                 echo '<div class="invalid-feedback">'.$errors['name'].'</div>';
@@ -168,7 +166,7 @@ include 'inc/header.php';
 
         <div class="form-group">
             <label for="description">Popis:</label>
-            <textarea name="description" id="description"); ?>"><?php echo htmlspecialchars($gift_description)?></textarea>
+            <textarea name="description" id="description"><?php echo htmlspecialchars($gift_description)?></textarea>
         </div>
 
         <div class="form-group">
@@ -203,7 +201,7 @@ include 'inc/header.php';
                 $prices=$pricesQuery->fetchAll(PDO::FETCH_ASSOC);
                 if (!empty($prices)){
                     foreach ($prices as $price){
-                        echo '<option value="'.$price['prices_id'].'" '.($price['prices_id']==$gift_category?'selected="selected"':'').'>'.htmlspecialchars($price['name']).'</option>';
+                        echo '<option value="'.$price['prices_id'].'" '.($price['prices_id']==$gift_prices?'selected="selected"':'').'>'.htmlspecialchars($price['prices_from']).' - '.htmlspecialchars($price['prices_upto']).'</option>';
                     }
                 }
                 ?>
@@ -217,7 +215,7 @@ include 'inc/header.php';
 
         <div class="form-group">
             <label for="until">Do kdy:</label>
-            <input name="until" id="until" type="date" required class="form-control <?php echo (!empty($errors['until'])?'is-invalid':''); ?>"><?php echo htmlspecialchars($gift_until)?>/>
+            <input name="until" id="until" type="date" required class="form-control <?php echo (!empty($errors['until'])?'is-invalid':''); ?>" value="<?php echo htmlspecialchars($gift_until)?>" />
             <?php
             if (!empty($errors['until'])){
                 echo '<div class="invalid-feedback">'.$errors['until'].'</div>';
@@ -226,7 +224,7 @@ include 'inc/header.php';
         </div>
 
         <button type="submit" class="btn btn-primary">uložit...</button>
-        <a href="index.php?category=<?php echo $gift_category;?>" class="btn btn-light">zrušit</a>
+        <a href="mywishlist.php" class="btn btn-light">zrušit</a>
     </form>
 
 <?php
