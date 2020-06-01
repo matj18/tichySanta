@@ -21,45 +21,52 @@ if (!empty($_GET['category']) || !empty($_GET['prices'])){
         if (!empty($_GET['prices'])) {
             //mame obe hodnoty
             $query = $db->prepare('SELECT
-                gifts.*, name AS category_name, prices_from, prices_upto
-                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
-                WHERE gifts.category_id=:category AND gifts.prices_id =:prices
-                ORDER BY until ASC;');
+                gifts.*, categories.name AS category_name, prices_from, prices_upto, users_for.name AS gift_for_name
+                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_from JOIN users AS users_for ON users_for.user_id = gifts.gift_for
+                WHERE gifts.category_id=:category AND gifts.prices_id =:prices AND gift_from=:user
+                ORDER BY until ASC');
             $query->execute([
                 ':category'=>$_GET['category'],
-                ':prices'=>$_GET['prices']
+                ':prices'=>$_GET['prices'],
+                ':user'=>$_SESSION['user_id']
             ]);
         } else {
             //mame jen kategorii
             $query = $db->prepare('SELECT
-                gifts.*, name AS category_name, prices_from, prices_upto
-                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
-                WHERE gifts.category_id=:category
+                gifts.*, categories.name AS category_name, prices_from, prices_upto, users_for.name AS gift_for_name
+                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_from JOIN users AS users_for ON users_for.user_id = gifts.gift_for
+                WHERE gifts.category_id=:category AND gift_from=:user
                 ORDER BY until ASC;');
             $query->execute([
-                ':category'=>$_GET['category']
+                ':category'=>$_GET['category'],
+                ':user'=>$_SESSION['user_id']
             ]);
         }
 
     } else {
         //mame jen cenu
         $query = $db->prepare('SELECT
-                gifts.*, name AS category_name, prices_from, prices_upto
-                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
-                WHERE gifts.prices_id =:prices
+                gifts.*, categories.name AS category_name, prices_from, prices_upto, users_for.name AS gift_for_name
+                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_from JOIN users AS users_for ON users_for.user_id = gifts.gift_for
+                WHERE gifts.prices_id =:prices AND gift_from=:user
                 ORDER BY until ASC;');
         $query->execute([
-            ':prices'=>$_GET['prices']
+            ':prices'=>$_GET['prices'],
+            ':user'=>$_SESSION['user_id']
         ]);
     }
 
 } else {
 //zadna hodnota
-    $query = $db->prepare('SELECT
-gifts.*, name AS category_name, prices_from, prices_upto
-FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
+    $query = $db->prepare('
+SELECT
+gifts.*, categories.name AS category_name, prices_from, prices_upto, users_for.name AS gift_for_name
+FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_from JOIN users AS users_for ON users_for.user_id = gifts.gift_for
+WHERE gift_from=:user
 ORDER BY until ASC;');
-    $query->execute();
+    $query->execute([
+        ':user'=>$_SESSION['user_id']
+    ]);
 };
 
 
@@ -114,22 +121,20 @@ if (!empty($gifts)){
     foreach ($gifts as $gift){
         echo '<tr>
                 <td>'.htmlspecialchars($gift['gift']).'</td>
-                <td>'.htmlspecialchars($gift['']).'</td>
+                <td>'.htmlspecialchars($gift['gift_for_name']).'</td>
                 <td>'.htmlspecialchars(date_format(date_create_from_format('Y-m-d', $gift['until']), 'j. n. y')).'</td>
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
               </tr>';
-        if ($gift['description']) {
-            echo '<tr>
-                <td><a href="gift.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Upravit</a></td>
-                <td colspan="3">'.htmlspecialchars($gift['description']).'</td>             
+        echo '<tr>
+                <td colspan="4">'.htmlspecialchars($gift['description']).'</td> 
+                <td class="odsazeni"><a href="giftNO.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Odhlásit</a></td>                      
               </tr>';
-        }
     }
     echo '</table>';
 #endregion výpis wishlist
 }else{
-    echo '<div class="alert alert-info">V seznamu přání nejsou zatím žádné dárky. Button</div>';
+    echo '<div class="alert alert-info">V seznamu nejsou zatím žádné dárky. <a href="users.php" class="btn btn-primary">Vybrat</a></div>';
 }
 
 

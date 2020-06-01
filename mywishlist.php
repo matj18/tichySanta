@@ -125,8 +125,8 @@ if (!empty($gifts)){
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
               </tr>';
         echo '<tr>
-                <td class="odsazeni"><a href="gift.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Upravit</a></td>
-                <td colspan="3">'.htmlspecialchars($gift['description']).'</td>             
+                <td colspan="3">'.htmlspecialchars($gift['description']).'</td>  
+                <td class="odsazeni"><a href="gift.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Upravit</a></td>           
               </tr>';
     }
     echo '</table>';
