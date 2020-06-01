@@ -20,7 +20,7 @@ if (!empty($_SESSION['user_id'])){
             ]);
             $count_wishlist=$countQuery->fetch(PDO::FETCH_COLUMN);
 
-            echo '<li><a href="profil.php?id='.$user['user_id'].'">'.htmlspecialchars($user['name']).' ('.$count_wishlist.')</a></li>';
+            echo '<li><a href="wishlist.php?id='.$user['user_id'].'">'.htmlspecialchars($user['name']).' ('.$count_wishlist.')</a></li>';
         }
         echo '</ul>';
     }
