@@ -21,45 +21,51 @@ if (!empty($_GET['category']) || !empty($_GET['prices'])){
         if (!empty($_GET['prices'])) {
             //mame obe hodnoty
             $query = $db->prepare('SELECT
-                gifts.*, name AS category_name, prices_from, prices_upto
-                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
-                WHERE gifts.category_id=:category AND gifts.prices_id =:prices
-                ORDER BY until ASC;');
+                gifts.*, categories.name AS category_name, prices_from, prices_upto
+                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_for
+                WHERE gifts.category_id=:category AND gifts.prices_id =:prices AND gift_for=:user
+                ORDER BY until ASC');
             $query->execute([
                 ':category'=>$_GET['category'],
-                ':prices'=>$_GET['prices']
+                ':prices'=>$_GET['prices'],
+                ':user'=>$_SESSION['user_id']
             ]);
         } else {
             //mame jen kategorii
             $query = $db->prepare('SELECT
-                gifts.*, name AS category_name, prices_from, prices_upto
-                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
-                WHERE gifts.category_id=:category
+                gifts.*, categories.name AS category_name, prices_from, prices_upto
+                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_for
+                WHERE gifts.category_id=:category AND gift_for=:user
                 ORDER BY until ASC;');
             $query->execute([
-                ':category'=>$_GET['category']
+                ':category'=>$_GET['category'],
+                ':user'=>$_SESSION['user_id']
             ]);
         }
 
     } else {
         //mame jen cenu
         $query = $db->prepare('SELECT
-                gifts.*, name AS category_name, prices_from, prices_upto
-                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
-                WHERE gifts.prices_id =:prices
+                gifts.*, categories.name AS category_name, prices_from, prices_upto
+                FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_for
+                WHERE gifts.prices_id =:prices AND gift_for=:user
                 ORDER BY until ASC;');
         $query->execute([
-            ':prices'=>$_GET['prices']
+            ':prices'=>$_GET['prices'],
+            ':user'=>$_SESSION['user_id']
         ]);
     }
 
 } else {
 //zadna hodnota
     $query = $db->prepare('SELECT
-gifts.*, name AS category_name, prices_from, prices_upto
-FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id)
+gifts.*, categories.name AS category_name, prices_from, prices_upto
+FROM gifts JOIN categories USING (category_id) JOIN prices USING (prices_id) JOIN users ON users.user_id = gifts.gift_for
+WHERE gift_for=:user
 ORDER BY until ASC;');
-    $query->execute();
+    $query->execute([
+        ':user'=>$_SESSION['user_id']
+    ]);
 };
 
 

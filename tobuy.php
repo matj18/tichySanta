@@ -109,11 +109,12 @@ $gifts = $query->fetchAll(PDO::FETCH_ASSOC);
 if (!empty($gifts)){
 #region výpis wishlist
     echo '<table><tr>
-<th>Dárek</th><th>Do kdy</th><th>Kategorie</th><th>Cena Kč</th>
+<th>Dárek</th><th>Pro</th><th>Do kdy</th><th>Kategorie</th><th>Cena Kč</th>
 </tr>';
     foreach ($gifts as $gift){
         echo '<tr>
                 <td>'.htmlspecialchars($gift['gift']).'</td>
+                <td>'.htmlspecialchars($gift['']).'</td>
                 <td>'.htmlspecialchars(date_format(date_create_from_format('Y-m-d', $gift['until']), 'j. n. y')).'</td>
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>

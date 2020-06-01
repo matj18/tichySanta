@@ -194,7 +194,7 @@ include 'inc/header.php';
         </div>
 
         <div class="form-group">
-            <label for="prices">Kategorie:</label>
+            <label for="prices">Kategorie ceny:</label>
             <select name="prices" id="prices" required class="form-control <?php echo (!empty($errors['prices'])?'is-invalid':''); ?>">
                 <option value="">--vyberte--</option>
                 <?php
