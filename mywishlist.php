@@ -120,7 +120,7 @@ if (!empty($gifts)){
               </tr>';
         if ($gift['description']) {
             echo '<tr>
-                <td><a href="gift.php" class="btn btn-secondary">Upravit</a></td>
+                <td><a href="gift.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Upravit</a></td>
                 <td colspan="3">'.htmlspecialchars($gift['description']).'</td>             
               </tr>';
         }
