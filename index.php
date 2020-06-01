@@ -8,9 +8,38 @@
   include __DIR__.'/inc/header.php';
 
   if (!empty($_SESSION['user_id'])){
-      //zjistime informace o uzivateli z databaze
+      #region profil uživatele
+      $name = $_SESSION['user_name'];
+      $description = '';
+      $count_wishlist = 0;
+      $count_tobuy = 0;
 
-    echo 'Tady bude profil';
+      //zjistime informace o uzivateli z databaze
+      $userQuery=$db->prepare('SELECT * FROM users WHERE user_id=:id LIMIT 1;');
+      $userQuery->execute([
+          ':id'=>$_SESSION['user_id']
+      ]);
+      if ($user=$userQuery->fetch(PDO::FETCH_ASSOC)) {
+          $description = $user['description'];
+      }
+      echo 'Tady bude profil'.htmlspecialchars($description);
+
+      $countQuery=$db->prepare('SELECT COUNT(gift_id) FROM gifts WHERE gift_for =:id;');
+      $countQuery->execute([
+          ':id'=>$_SESSION['user_id']
+      ]);
+      $count_wishlist=$countQuery->fetch(PDO::FETCH_COLUMN);
+      echo '<div><a>Seznam přání: '.htmlspecialchars($count_wishlist).'</a></div>';
+
+      $countQuery=$db->prepare('SELECT COUNT(gift_id) FROM gifts WHERE gift_from =:id;');
+      $countQuery->execute([
+          ':id'=>$_SESSION['user_id']
+      ]);
+      $count_tobuy=$countQuery->fetch(PDO::FETCH_COLUMN);
+      echo '<div><a>Sehnat dárky: '.htmlspecialchars($count_tobuy).'</a></div>';
+
+
+      #endregion profil uživatele
   }else{
     echo '<p>Uživatel není přihlášen.</p>';
     echo '<a href="login.php" class="btn btn-primary">přihlásit se</a>';

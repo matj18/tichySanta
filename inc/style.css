@@ -1,10 +1,9 @@
 .nodeco {
     text-decoration: none;
-    text-underline-style: none;
     color: white;
 }
 
 .nodeco:hover {
     color: cornflowerblue;
-    text-underline: none;
+    text-decoration: none; !important;
 }
