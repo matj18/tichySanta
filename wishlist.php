@@ -7,6 +7,12 @@ require_once 'inc/facebook.php';
 //vložíme do stránek hlavičku
 include __DIR__.'/inc/header.php';
 
+if (empty($_SESSION['user_id'])){
+    //uživatel není přihlášný
+    header('Location: index.php');
+    exit();
+}
+
 //if (!empty($_GET['category'])){
 //#region výběr příspěvků z konkrétní kategorie
 //$query = $db->prepare('SELECT
@@ -61,7 +67,12 @@ if (!empty($gifts)){
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
               </tr>';
+        if ($gift['description']) {
+            echo '<tr>
+                <td colspan="4">'.htmlspecialchars($gift['description']).'</td>             
+              </tr>';
         }
+    }
     echo '</table>';
 #endregion výpis wishlist
 }else{
