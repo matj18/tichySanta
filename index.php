@@ -22,7 +22,8 @@
       if ($user=$userQuery->fetch(PDO::FETCH_ASSOC)) {
           $description = $user['description'];
       }
-      echo 'Tady bude profil'.htmlspecialchars($description);
+      echo '<h2>'.htmlspecialchars($name).'</h2>
+            <div>'.htmlspecialchars($description).'</div>';
 
       $countQuery=$db->prepare('SELECT COUNT(gift_id) FROM gifts WHERE gift_for =:id;');
       $countQuery->execute([
