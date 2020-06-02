@@ -12,18 +12,18 @@ if (empty($_SESSION['user_id'])){
     exit();
 }
 
+if (empty($_REQUEST['id'])) {
+    //nemame urceny profil
+    header('Location: users.php');
+    exit();
+}
+
 if ($_REQUEST['id'] == $_SESSION['user_id']) {
     //uživatel jde na svuj profil
     header('Location: mywishlist.php');
     exit();
 }
 
-
-if (empty($_REQUEST['id'])) {
-    //nemame urceny profil
-    header('Location: users.php');
-    exit();
-}
 
 //promenne
 $user_id = $_REQUEST['id'];
