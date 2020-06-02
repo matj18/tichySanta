@@ -102,7 +102,7 @@ include 'inc/header.php';
         <a href="editcategories.php" class="btn btn-light">zrušit</a>
         <?php
         if ($categoryId){
-            echo '<a href="delete.php?type=categories&id='.$categoryId.'" class="btn btn-danger">smazat</a>';
+            echo '<a href="delete.php?type=categories&id='.$categoryId.'" class="btn btn-danger" onclick="return confirm(\'Chcete tuto kategorii smazat?\')">smazat</a>';
         }
         ?>
     </form>

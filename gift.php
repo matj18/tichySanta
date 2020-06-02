@@ -225,6 +225,10 @@ include 'inc/header.php';
 
         <button type="submit" class="btn btn-primary">uložit...</button>
         <a href="mywishlist.php" class="btn btn-light">zrušit</a>
+        <?php if ($gift_id){
+            echo '<a href="delete.php?type=gifts&id='.$gift_id.'" class="btn btn-danger" onclick="return confirm(\'Chcete tento dárek smazat?\')">smazat</a>';
+        }?>
+
     </form>
 
 <?php

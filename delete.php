@@ -13,11 +13,14 @@ if (empty($_SESSION['user_id']) || empty($_REQUEST['type']) || empty($_REQUEST['
 $type = $_REQUEST['type'];
 $id = $_REQUEST['id'];
 
-if ($type=='posts') {
-    $query = $db->prepare('DELETE FROM posts WHERE post_id = :id');
+if ($type=='gifts') {
+    echo "<script type='text/javascript'>alert('zde1');</script>";
+    $query = $db->prepare('DELETE FROM gifts WHERE gift_id = :id');
     $query->execute([
         ':id'=>$id
     ]);
+    header('Location: mywishlist.php');
+    exit();
 } elseif ($type=='categories') {
     $query = $db->prepare('DELETE FROM categories WHERE category_id = :id');
     $query->execute([
