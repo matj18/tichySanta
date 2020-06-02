@@ -15,7 +15,7 @@ if (empty($_SESSION['user_id'])){
 }
 
 echo '<h2>Můj seznam přání</h2>';
-echo '<a href="gift.php" class="btn btn-primary">Přidat přání</a>';
+echo '<a href="gift.php" class="btn btn-primary, btn-prani">Přidat přání</a>';
 
 if (!empty($_GET['category']) || !empty($_GET['prices'])){
 //aspon jedna hodnota zvolena
@@ -120,7 +120,7 @@ if (!empty($gifts)){
 <th>Dárek</th><th>Do kdy</th><th>Kategorie</th><th>Cena Kč</th>
 </tr>';
     foreach ($gifts as $gift){
-        echo '<tr>
+        echo '<tr class="caranahore">
                 <td>'.htmlspecialchars($gift['gift']).'</td>
                 <td>'.htmlspecialchars(date_format(date_create_from_format('Y-m-d', $gift['until']), 'j. n. y')).'</td>
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
