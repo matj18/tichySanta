@@ -1,3 +1,7 @@
+html {
+    background-color: white;
+    background-image: url("background.jpg")}
+
 .nodeco {
     text-decoration: none;
     color: white;
