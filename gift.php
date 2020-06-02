@@ -108,7 +108,7 @@ if (!empty($_POST)){
 
         if ($gift_id){
             #region aktualizace existujícího příspěvku
-            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices until=:until WHERE gift_id=:id LIMIT 1;');
+            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices, until=:until WHERE gift_id=:id LIMIT 1;');
             $saveQuery->execute([
                 ':name' =>$gift_name,
                 ':description' =>$gift_description,
