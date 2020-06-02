@@ -41,6 +41,7 @@
   }
 
   //vložíme do stránek hlavičku
+$pageTitle='Přihlášení';
   include __DIR__.'/inc/header.php';
 ?>
 

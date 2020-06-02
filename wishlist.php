@@ -4,8 +4,7 @@ require_once 'inc/user.php';
 //načteme inicializaci knihovny pro Facebook
 require_once 'inc/facebook.php';
 
-//vložíme do stránek hlavičku
-include __DIR__.'/inc/header.php';
+
 
 if (empty($_SESSION['user_id'])){
     //uživatel není přihlášný
@@ -39,6 +38,11 @@ if ($user=$userQuery->fetch(PDO::FETCH_ASSOC)) {
     $user_name = $user['name'];
     $user_description = $user['description'];
 }
+
+//vložíme do stránek hlavičku
+$pageTitle=htmlspecialchars($user_name);
+include __DIR__.'/inc/header.php';
+
 echo '<h2>Seznam přání uživatele '.htmlspecialchars($user_name).'</h2>
             <div>'.htmlspecialchars($user_description).'</div>';
 

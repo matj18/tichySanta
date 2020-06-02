@@ -5,6 +5,7 @@ require_once 'inc/user.php';
 require_once 'inc/facebook.php';
 
 //vložíme do stránek hlavičku
+$pageTitle='Můj seznam přání';
 include __DIR__.'/inc/header.php';
 
 if (empty($_SESSION['user_id'])){

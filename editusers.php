@@ -5,6 +5,7 @@ require_once 'inc/user.php';
 require_once 'inc/facebook.php';
 
 //vložíme do stránek hlavičku
+$pageTitle='Editace administrátorů';
 include 'inc/header.php';
 
 if ($_SESSION['role'] != 'administrátor') {
