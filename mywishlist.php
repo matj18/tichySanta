@@ -15,7 +15,7 @@ if (empty($_SESSION['user_id'])){
 }
 
 echo '<h2>Můj seznam přání</h2>';
-echo '<a href="gift.php" class="btn btn-primary, btn-prani">Přidat přání</a>';
+echo '<div class="btn-prani"><a href="gift.php" class="btn btn-primary">Přidat přání</a></div>';
 
 if (!empty($_GET['category']) || !empty($_GET['prices'])){
 //aspon jedna hodnota zvolena
