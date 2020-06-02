@@ -23,6 +23,7 @@
         //heslo je platné => přihlásíme uživatele
         $_SESSION['user_id']=$user['user_id'];
         $_SESSION['user_name']=$user['name'];
+        $_SESSION['role'] = $user['role'];
 
         //smažeme požadavky na obnovu hesla
         $forgottenDeleteQuery=$db->prepare('DELETE FROM forgotten_passwords WHERE user_id=:user;');
