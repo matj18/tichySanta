@@ -22,15 +22,14 @@ if (!empty($_REQUEST['id'])){
             header('Location: mywishlist.php');
             exit();
         }
-        if (empty($gift['gift_from']))
-            $giftQuery=$db->prepare('UPDATE gifts SET gift_from =:user WHERE gift_id =:id');
+        if (!empty($gift['gift_from']))
+            $giftQuery=$db->prepare('UPDATE gifts SET gift_from = NULL WHERE gift_id =:id');
         $giftQuery->execute([
-            ':user'=>$_SESSION['user_id'],
             ':id'=>$_REQUEST['id'],
         ]);
     }
 }
 #endregion načtení existujícího dárku z DB a odhlaseni
 
-header('Location: wishlist.php');
+header('Location: tobuy.php');
 exit();

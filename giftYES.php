@@ -34,5 +34,5 @@ if (!empty($_REQUEST['id'])){
 }
 #endregion načtení existujícího dárku z DB a zamluveni
 
-header('Location: wishlist.php');
+header('Location: tobuy.php');
 exit();
