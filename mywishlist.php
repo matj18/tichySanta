@@ -122,7 +122,7 @@ if (!empty($gifts)){
     foreach ($gifts as $gift){
         echo '<tr class="caranahore">
                 <td>'.htmlspecialchars($gift['gift']).'</td>
-                <td>'.htmlspecialchars(date_format(date_create_from_format('Y-m-d', $gift['until']), 'j. n. y')).'</td>
+                <td>'.htmlspecialchars(date('d. m. Y',strtotime($gift['until']))).'</td>
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
               </tr>';
