@@ -120,17 +120,30 @@ if (!empty($gifts)){
 <th>Dárek</th><th>Pro</th><th>Do kdy</th><th>Kategorie</th><th>Cena Kč</th>
 </tr>';
     foreach ($gifts as $gift){
-        echo '<tr>
-                <td>'.htmlspecialchars($gift['gift']).'</td>
-                <td>'.htmlspecialchars($gift['gift_for_name']).'</td>
-                <td>'.htmlspecialchars(date_format(date_create_from_format('Y-m-d', $gift['until']), 'j. n. y')).'</td>
-                <td>'.htmlspecialchars($gift['category_name']).'</td>
-                <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
+        if (strtotime($gift['until']) >= time()) {
+            echo '<tr class="caranahore">
+                <td>' . htmlspecialchars($gift['gift']) . '</td>
+                <td>' . htmlspecialchars($gift['gift_for_name']) . '</td>
+                <td>' . htmlspecialchars(date('d. m. Y', strtotime($gift['until']))) . '</td>
+                <td>' . htmlspecialchars($gift['category_name']) . '</td>
+                <td>' . htmlspecialchars($gift['prices_from']) . ' - ' . htmlspecialchars($gift['prices_upto']) . '</td>
               </tr>';
-        echo '<tr>
-                <td colspan="4">'.htmlspecialchars($gift['description']).'</td> 
-                <td class="odsazeni"><a href="giftNO.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Odhlásit</a></td>                      
+            echo '<tr>
+                <td colspan="4">' . htmlspecialchars($gift['description']) . '</td> 
+                <td class="odsazeni"><a href="giftNO.php?id=' . $gift['gift_id'] . '" class="btn btn-secondary">Odhlásit</a></td>                      
               </tr>';
+        }
+    }
+    foreach ($gifts as $gift){
+        if (strtotime($gift['until']) < time()) {
+            echo '<tr class="text-secondary">
+                <td>' . htmlspecialchars($gift['gift']) . '</td>
+                <td>' . htmlspecialchars($gift['gift_for_name']) . '</td>
+                <td>' . htmlspecialchars(date('d. m. Y', strtotime($gift['until']))) . '</td>
+                <td>' . htmlspecialchars($gift['category_name']) . '</td>
+                <td>' . htmlspecialchars($gift['prices_from']) . ' - ' . htmlspecialchars($gift['prices_upto']) . '</td>
+              </tr>';
+        }
     }
     echo '</table>';
 #endregion výpis wishlist

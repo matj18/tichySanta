@@ -151,19 +151,31 @@ if (!empty($gifts)){
 <th>Dárek</th><th>Do kdy</th><th>Kategorie</th><th>Cena Kč</th>
 </tr>';
     foreach ($gifts as $gift){
-        echo '<tr class="caranahore">
+        if (strtotime($gift['until']) >= time()) {
+            echo '<tr class="caranahore">
                 <td>'.htmlspecialchars($gift['gift']).'</td>
-                <td>'.htmlspecialchars(date_format(date_create_from_format('Y-m-d', $gift['until']), 'j. n. y')).'</td>
+                <td>'.htmlspecialchars(date('d. m. Y',strtotime($gift['until']))).'</td>
                 <td>'.htmlspecialchars($gift['category_name']).'</td>
                 <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
               </tr>';
-        echo '<tr>
+            echo '<tr>
                 <td colspan="3">'.htmlspecialchars($gift['description']).'</td>  
                 <td class="odsazeni">';
-        if (empty($gift['gift_from']))
-        echo '<a href="giftYES.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Zamluvit</a>';
-        echo '</td>           
+            if (empty($gift['gift_from']))
+                echo '<a href="giftYES.php?id='.$gift['gift_id'].'" class="btn btn-secondary">Zamluvit</a>';
+            echo '</td>           
               </tr>';
+        }
+    }
+    foreach ($gifts as $gift){
+        if (strtotime($gift['until']) < time()) {
+            echo '<tr class="text-secondary">
+                <td>'.htmlspecialchars($gift['gift']).'</td>
+                <td>'.htmlspecialchars(date('d. m. Y',strtotime($gift['until']))).'</td>
+                <td>'.htmlspecialchars($gift['category_name']).'</td>
+                <td>'.htmlspecialchars($gift['prices_from']).' - '.htmlspecialchars($gift['prices_upto']).'</td>
+              </tr>';
+        }
     }
     echo '</table>';
 #endregion výpis wishlist
