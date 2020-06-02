@@ -88,11 +88,11 @@ if (!empty($_POST)){
     }
     #endregion kontrola prices
     #region kontrola until
-    //todo nefunguje
     if (!empty($_POST['until'])) {
-        $d=strtotime($_POST['until']);
-        if ($d < strtotime(date('D-M-Y'))) {
+        if (strtotime($_POST['until']) < time()) {
             $errors['until'] = 'Vyberte datum v budoucnosti.';
+        } else {
+            $gift_until = strval(date('Y-m-d',strtotime($gift['until'])));
         }
     } else {
         $errors['until']='Vyberte datum.';
@@ -108,25 +108,25 @@ if (!empty($_POST)){
 
         if ($gift_id){
             #region aktualizace existujícího příspěvku
-            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices WHERE gift_id=:id LIMIT 1;');
+            $saveQuery=$db->prepare('UPDATE gifts SET gift=:name, description=:description, category_id=:category, prices_id=:prices until=:until WHERE gift_id=:id LIMIT 1;');
             $saveQuery->execute([
                 ':name' =>$gift_name,
                 ':description' =>$gift_description,
                 ':category'=>$gift_category,
                 ':prices'=>$gift_prices,
-                //':until'=>$gift_until, //todo nefunguje
+                ':until'=>$gift_until,
                 ':id'=>$gift_id
             ]);
             #endregion aktualizace existujícího příspěvku
         }else{
             #region uložení nového příspěvku
-            $saveQuery=$db->prepare('INSERT INTO gifts (gift, description, category_id, prices_id, gift_for) VALUES (:name, :description, :category, :prices, :user);');
+            $saveQuery=$db->prepare('INSERT INTO gifts (gift, description, category_id, prices_id, gift_for, until) VALUES (:name, :description, :category, :prices, :user, :until);');
             $saveQuery->execute([
                 ':name' =>$gift_name,
                 ':description' =>$gift_description,
                 ':category'=>$gift_category,
                 ':prices'=>$gift_prices,
-                //':until'=>$gift_until, //todo nefunguje
+                ':until'=>$gift_until,
                 ':user'=>$gift_for,
             ]);
             #endregion uložení nového příspěvku
@@ -134,7 +134,7 @@ if (!empty($_POST)){
 
         #endregion uložení dat
         #region přesměrování
-        header('Location: wishlist.php');
+        header('Location: mywishlist.php');
         exit();
         #endregion přesměrování
     }
