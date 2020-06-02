@@ -37,7 +37,7 @@ $userQuery->execute([
 ]);
 if ($user=$userQuery->fetch(PDO::FETCH_ASSOC)) {
     $user_name = $user['name'];
-    $description = $user['description'];
+    $user_description = $user['description'];
 }
 echo '<h2>Seznam přání uživatele '.htmlspecialchars($user_name).'</h2>
             <div>'.htmlspecialchars($user_description).'</div>';
