@@ -8,7 +8,7 @@ require_once 'inc/facebook.php';
 if (empty($_SESSION['user_id'])){
     //uživatel není přihlášný
     header('Location: index.php');
-    exit(); //todo smer
+    exit();
 }
 
 #region načtení existujícího dárku z DB a zamluveni

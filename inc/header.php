@@ -11,6 +11,13 @@
     <header class="container bg-dark">
         <h1 class="text-white py-4 px-2"><a href="index.php" class="nodeco">Tichý Santa</a></h1>
 
+        <div class="text-right text-white">
+            <?php
+            if (!empty($_SESSION['user_id']) && ($_SESSION['role'] == 'administrátor')){
+                echo '<a href="editusers.php" class="text-white">editovat uživatele</a> <a href="editcategories.php" class="text-white">editovat kategorie</a>';
+            }
+            ?>
+        </div>
       <div class="text-right text-white">
       <?php
         if (!empty($_SESSION['user_id'])){

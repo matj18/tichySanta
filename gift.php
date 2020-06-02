@@ -8,7 +8,7 @@ require_once 'inc/facebook.php';
 if (empty($_SESSION['user_id'])){
     //uživatel není přihlášný
     header('Location: index.php');
-    exit(); //todo smer
+    exit();
 }
 
 //pomocné proměnné pro přípravu dat do formuláře
@@ -36,7 +36,7 @@ if (!empty($_REQUEST['id'])){
         if ($gift_for != $gift['gift_for']) {
             //uzivatel chce editovat cizi darek
             header('Location: index.php');
-            exit(); //todo smer
+            exit();
         }
     }
 }
@@ -114,7 +114,7 @@ if (!empty($_POST)){
                 ':description' =>$gift_description,
                 ':category'=>$gift_category,
                 ':prices'=>$gift_prices,
-                //':until'=>$gift_until,
+                //':until'=>$gift_until, //todo nefunguje
                 ':id'=>$gift_id
             ]);
             #endregion aktualizace existujícího příspěvku
@@ -126,7 +126,7 @@ if (!empty($_POST)){
                 ':description' =>$gift_description,
                 ':category'=>$gift_category,
                 ':prices'=>$gift_prices,
-                //':until'=>$gift_until,
+                //':until'=>$gift_until, //todo nefunguje
                 ':user'=>$gift_for,
             ]);
             #endregion uložení nového příspěvku
@@ -134,7 +134,7 @@ if (!empty($_POST)){
 
         #endregion uložení dat
         #region přesměrování
-        header('Location: wishlist.php'); //todo smer
+        header('Location: wishlist.php');
         exit();
         #endregion přesměrování
     }

@@ -8,7 +8,7 @@ require_once 'inc/facebook.php';
 if (empty($_SESSION['user_id'])){
     //uživatel není přihlášný
     header('Location: index.php');
-    exit(); //todo smer
+    exit();
 }
 
 #region nacteni profilu uživatele
@@ -40,7 +40,7 @@ if (!empty($_POST)){
     }
 
         #region přesměrování
-        header('Location: index.php'); //todo smer
+        header('Location: index.php');
         exit();
         #endregion přesměrování
 
