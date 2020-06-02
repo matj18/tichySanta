@@ -44,6 +44,7 @@ $pageTitle=htmlspecialchars($user_name);
 include __DIR__.'/inc/header.php';
 
 echo '<h2>Seznam přání uživatele '.htmlspecialchars($user_name).'</h2>
+<a href="users.php" class="text-secondary">Zpět na seznam uživatelů</a>
             <div>'.htmlspecialchars($user_description).'</div>';
 
 

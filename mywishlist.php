@@ -15,6 +15,7 @@ if (empty($_SESSION['user_id'])){
 }
 
 echo '<h2>Můj seznam přání</h2>';
+echo '<a href="gift.php" class="btn btn-primary">Přidat přání</a>';
 
 if (!empty($_GET['category']) || !empty($_GET['prices'])){
 //aspon jedna hodnota zvolena
@@ -133,9 +134,8 @@ if (!empty($gifts)){
     echo '</table>';
 #endregion výpis wishlist
 }else{
-echo '<div class="alert alert-info">V seznamu přání nejsou zatím žádné dárky. <a href="gift.php" class="btn btn-primary">Přidat</a></div>';
+echo '<div class="alert alert-info">V seznamu přání nejsou zatím žádné dárky. </div>';
 }
-
 
 //vložíme do stránek patičku
 include __DIR__.'/inc/footer.php';

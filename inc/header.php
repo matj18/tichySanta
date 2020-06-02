@@ -9,7 +9,7 @@
   </head>
   <body>
     <header class="container bg-dark">
-        <h1 class="text-white py-4 px-2"><a href="index.php" class="nodeco">Tichý Santa</a></h1>
+        <h1 class="text-white py-4 px-2"><a href="users.php" class="nodeco">Tichý Santa</a></h1>
 
         <div class="text-right text-white">
             <?php
@@ -21,7 +21,7 @@
       <div class="text-right text-white">
       <?php
         if (!empty($_SESSION['user_id'])){
-          echo '<strong>'.htmlspecialchars($_SESSION['user_name']).'</strong>';
+          echo '<strong><a href="index.php" class="text-white">'.htmlspecialchars($_SESSION['user_name']).'</a></strong>';
           echo ' - ';
           echo '<a href="logout.php" class="text-white">odhlásit se</a>';
         }else{
